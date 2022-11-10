@@ -1,0 +1,19 @@
+{
+  "name": "peda",
+  "version": "0.1.0",
+  "description": "the official peda web app with all the necessary apis",
+  "main": "index.js",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "author": "danielonyenwee",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@astrojs/svelte": "^1.0.2",
+    "astro": "^1.6.6",
+    "svelte": "^3.53.1"
+  }
+}
