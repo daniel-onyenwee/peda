@@ -1,0 +1,16 @@
+---
+import Authlayout from "../layouts/auth.astro"
+import { SigninPage } from "@components/page"
+
+let apiKey = import.meta.env.API_KEY
+
+let browserTheme:any = Astro.cookies.get("theme").value || "system"
+---
+
+<Authlayout type={"Sign in"}>
+    <SigninPage 
+        apiKey={apiKey} 
+        theme={browserTheme}
+        browserTheme={browserTheme}
+        client:load/>
+</Authlayout>
