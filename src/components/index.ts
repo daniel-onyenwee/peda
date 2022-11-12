@@ -1,11 +1,9 @@
-import AlertBox from "./alert-box.svelte"
-import DefaultTextInput from "./default-text-input.svelte"
-import SigninTab from "./signin-tab.svelte"
-import SignupTab from "./signup-tab.svelte"
+import * as Page from "./page"
+import * as Tab from "./tab"
+import * as Ui from "./ui"
 
 export {
-    AlertBox,
-    SigninTab,
-    SignupTab,
-    DefaultTextInput
+    Ui,
+    Page,
+    Tab
 }
