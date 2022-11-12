@@ -2,6 +2,9 @@
 
 interface ImportMetaEnv {
     readonly API_KEY: string
+    readonly SUPABASE_URL: string
+    readonly SUPABASE_KEY: string
+    readonly DB_URL: string
 }
 
 interface ImportMeta {
