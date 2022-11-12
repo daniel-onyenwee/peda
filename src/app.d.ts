@@ -2,7 +2,7 @@
 // for information about these interfaces
 // and what to do when importing types
 declare namespace App {
-        type Theme = "light"|"dark"
+        type Theme = "light"|"dark"|"system"
 
         type SigninErrorMessage = "none"|
         "Username or email and password not filled"|
