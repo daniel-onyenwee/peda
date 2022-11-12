@@ -1,0 +1,29 @@
+---
+interface Props {
+  type: "Sign up" | "Sign in"
+}
+
+const { type } = Astro.props
+---
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta charset="utf-8"/>
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+        <meta name="generator" content={Astro.generator}/>
+        <title>{type} / Peda</title>
+    </head>
+    <body>
+        <slot/>
+    </body>
+</html>
+
+<style lang="less">
+    html,
+    body {
+        margin: 0 0 0 0;
+        padding: 0 0 0 0;
+    }
+</style>
