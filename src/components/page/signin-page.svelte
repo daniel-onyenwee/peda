@@ -3,7 +3,7 @@
     import { AlertBox } from "@components/ui"
     import { onMount } from "svelte"
 
-    interface SignUpEventDetail {
+    interface SignInEventDetail {
         usernameOrEmail: string
         password: string
     }
@@ -22,12 +22,59 @@
     let alertBoxContent:string = String()
 
 
-    const signIn = async (e:CustomEvent<SignUpEventDetail>) => {
+    const signIn = async (e:CustomEvent<SignInEventDetail>) => {
         loading = true
+
         if (!window.navigator.onLine) {
             alertBoxTitle = "Connection Problem"
             alertBoxContent = "No internet connection detected"
             showAlertBox = true
+            loading = false
+            return
+        }
+
+        const { usernameOrEmail, password } = e.detail
+
+        let response = await fetch("/api/auth/signin", { 
+            method: "POST",
+            body: JSON.stringify({
+                username_or_email: usernameOrEmail,
+                password,
+            }),
+            headers: {
+                "Accept": "*/*",
+                "Authorization": `Bearer ${apiKey}`,
+                "Content-Type": "application/json"
+            }
+        })
+
+        if (response.status == 500 || response.status == 401) {
+            alertBoxTitle = "Server Error"
+            alertBoxContent = "Sorry, Error detected at our end"
+            showAlertBox = true
+            loading = false
+            return
+        }
+
+        let { data, error }:App.ApiResponseData = await response.json()
+
+        if (error) {
+            errorType = error.code == 205 ? "Username or email not found" : error.code == 207 ? "Incorrect password" : "none"
+            loading = false
+            return
+        }
+
+        if (data) {
+            await fetch("/session", { 
+                method: "POST",
+                body: JSON.stringify({"user id": data.id, theme: "system"}),
+                headers: {
+                    "Accept": "*/*",
+                    "Content-Type": "application/json"
+                }
+            })
+            errorType = "none"
+            document.location.href = "/"
             loading = false
             return
         }
