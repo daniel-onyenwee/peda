@@ -12,6 +12,7 @@
   "author": "danielonyenwee",
   "license": "UNLICENSED",
   "dependencies": {
+    "@astrojs/netlify": "^1.2.1",
     "@astrojs/svelte": "^1.0.2",
     "@js-temporal/polyfill": "^0.4.3",
     "@supabase/supabase-js": "^2.1.0",
