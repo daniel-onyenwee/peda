@@ -49,4 +49,15 @@ declare namespace App {
         interface CookieUserData {
                 id: string
         }
+
+        interface User {
+                id: string
+                username: string
+                email: string
+                password: string
+                created_at: string
+                email_confirmed: boolean
+                profile_image: string
+                metadata: {[name:string]: any}
+        }
 }
