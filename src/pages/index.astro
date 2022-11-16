@@ -1,15 +1,7 @@
 ---
+if (Astro.cookies.has("user id")) {
+  return Astro.redirect("/home")
+} else {
+  return Astro.redirect("/signin")
+}
 ---
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta charset="utf-8"/>
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
-    <meta name="generator" content={Astro.generator}/>
-    <title>Welcome / Peda</title>
-  </head>
-  <body>
-    
-  </body>
-</html>

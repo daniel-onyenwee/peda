@@ -1,6 +1,7 @@
 <script lang="ts">
     import { SignupTab } from "@components/tab"
     import { AlertBox } from "@components/ui"
+    import { Temporal } from "@js-temporal/polyfill"
     import { onMount } from "svelte"
 
     interface SignUpEventDetail {
@@ -30,7 +31,57 @@
             showAlertBox = true
             loading = false
             return
-        } 
+        }
+        
+        let createdAt = Temporal.Now.zonedDateTimeISO().toString()
+
+        const { username, email, password } = e.detail
+
+        let response = await fetch("/api/auth/signup", { 
+            method: "POST",
+            body: JSON.stringify({
+                username,
+                email,
+                password,
+                created_at: createdAt
+            }),
+            headers: {
+                "Accept": "*/*",
+                "Authorization": `Bearer ${apiKey}`,
+                "Content-Type": "application/json"
+            }
+        })
+
+        if (response.status == 500 || response.status == 401) {
+            alertBoxTitle = "Server Error"
+            alertBoxContent = "Sorry, Error detected at our end"
+            showAlertBox = true
+            loading = false
+            return
+        }
+
+        let { data, error }:App.ApiResponseData = await response.json()
+
+        if (error) {
+            errorType = error.code == 201 ? "Email already exist" : error.code == 203 ? "Username already exist" : "none"
+            loading = false
+            return
+        }
+
+        if (data) {
+            await fetch("/session", { 
+                method: "POST",
+                body: JSON.stringify({"user id": data.id, theme: "system"}),
+                headers: {
+                    "Accept": "*/*",
+                    "Content-Type": "application/json"
+                }
+            })
+            errorType = "none"
+            document.location.href = "/"
+            loading = false
+            return
+        }
     }
 
     onMount(() => {

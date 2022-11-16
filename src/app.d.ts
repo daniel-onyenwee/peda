@@ -27,13 +27,37 @@ declare namespace App {
         "Incorrect email format"|
         "Incorrect username format"
 
-        interface Locals {
-                user: {
-                        username: string
-                        password: string
-                        id: string
-                        confirm_email: boolean
-                        email: string
+        interface PostgresFunctionData {
+                ok: boolean
+                error: {
+                    code: number
+                    message: string
                 } | null
+                data: any
+        }
+
+        interface ApiResponseData {
+                ok: boolean,
+                error: {
+                    code: number
+                    message: string
+                    hint?: string
+                } | null
+                data: any
+        }
+
+        interface CookieUserData {
+                id: string
+        }
+
+        interface User {
+                id: string
+                username: string
+                email: string
+                password: string
+                created_at: string
+                email_confirmed: boolean
+                profile_image: string
+                metadata: {[name:string]: any}
         }
 }
